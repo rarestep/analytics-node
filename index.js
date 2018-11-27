@@ -25,6 +25,8 @@ class Analytics {
    *   @property {Number} flushInterval (default: 10000)
    *   @property {String} host (default: 'https://api.segment.io')
    *   @property {Boolean} enable (default: true)
+   *   @property {Boolean} retryCount (default: 3)
+   *   @property {Function} retryDelay (default: axiosRetry.exponentialDelay)
    */
 
   constructor (writeKey, options) {
@@ -49,7 +51,7 @@ class Analytics {
     axiosRetry(axios, {
       retries: options.retryCount || 3,
       retryCondition: this._isErrorRetryable,
-      retryDelay: axiosRetry.exponentialDelay
+      retryDelay: options.retryDelay || axiosRetry.exponentialDelay
     })
   }
 
