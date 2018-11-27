@@ -293,7 +293,7 @@ class Analytics {
 
   _isErrorRetryable (error) {
     // Retry Network Errors.
-    if (axiosRetry.isNetworkError(error)) {
+    if (axiosRetry.isNetworkError(error) || error.message == 'Network Error') {
       return true
     }
 
